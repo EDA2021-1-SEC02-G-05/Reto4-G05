@@ -24,6 +24,7 @@ import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
+from DISClib.ADT.graph import gr
 assert cf
 
 
@@ -36,11 +37,12 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
+    print("1- Cargar información del grafo")
     print("2- ")
 
-catalog = None
-
+dicci = None
+filess="landing_points.csv"
+filess2='connections.csv'
 """
 Menu principal
 """
@@ -48,11 +50,14 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+
+        dicci=controller.init()
+        dicci=controller.loadvertices(dicci,filess)
+        dicci=controller.loadarcos(dicci,filess2)
         print("Cargando información de los archivos ....")
 
     elif int(inputs[0]) == 2:
         pass
-
     else:
         sys.exit(0)
 sys.exit(0)

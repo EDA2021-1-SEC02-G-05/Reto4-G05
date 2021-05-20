@@ -27,9 +27,12 @@
 
 import config as cf
 from DISClib.ADT import list as lt
+from DISClib.ADT.graph import gr
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Graphs import dijsktra as djk
+from DISClib.Utils import error as error
 assert cf
 
 """
@@ -40,7 +43,52 @@ los mismos.
 # Construccion de modelos
 
 
-jejejej
+def newgraph():
+
+    dicci={}
+
+    dicci["grafico"]=gr.newGraph(datastructure='ADJ_LIST',directed= False,size=14000,comparefunction=None)
+
+
+    return dicci
+
+
+
+
+def agregarvertices(dicci,ver):
+
+    gr.insertVertex(dicci["grafico"],ver["landing_point_id"])
+
+
+    return dicci
+
+def agregararcos(dicci,verti):
+
+    gr.addEdge(dicci['grafico'],verti["destination"],verti["origin"],verti["cable_length"])
+
+
+    return dicci
+
+
+
+
+
+
+        
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
 
 # Funciones para agregar informacion al catalogo
 
@@ -51,3 +99,14 @@ jejejej
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 # Funciones de ordenamiento
+def compareStopIds(stop, keyvaluestop):
+    """
+    Compara dos estaciones
+    """
+    stopcode = keyvaluestop['key']
+    if (stop == stopcode):
+        return 0
+    elif (stop > stopcode):
+        return 1
+    else:
+        return -1

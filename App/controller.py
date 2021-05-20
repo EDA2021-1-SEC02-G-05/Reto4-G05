@@ -31,6 +31,46 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Inicialización del Catálogo de libros
 
+def init():
+    """
+    Llama la funcion de inicializacion  del modelo.
+    """
+    dicci = model.newgraph()
+    return dicci
+
+
+
+
+def loadvertices(dicci,filess):
+
+    mapfile1 = cf.data_dir + "landing_points.csv"
+    input_file = csv.DictReader(open(mapfile1, encoding="utf-8"),
+                                delimiter=",")
+    
+    for ver in input_file:
+
+        model.agregarvertices(dicci,ver)
+
+  
+    return dicci
+
+def loadarcos(dicci,filess2):
+
+    mapfile1 = cf.data_dir + "connections.csv"
+    input_file = csv.DictReader(open(mapfile1, encoding="utf-8"),
+                                delimiter=",")
+    
+    for verti in input_file:
+
+        model.agregararcos(dicci,verti)
+
+    return dicci
+
+
+
+
+
+
 # Funciones para la carga de datos
 
 # Funciones de ordenamiento
