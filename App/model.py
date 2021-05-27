@@ -48,23 +48,31 @@ def newgraph():
     dicci={}
 
     dicci["grafico"]=gr.newGraph(datastructure='ADJ_LIST',directed= False,size=14000,comparefunction=None)
+    dicci["lista"]=lt.newList()
+    dicci["paises"]=lt.newList()
 
 
     return dicci
 
-
-
-
 def agregarvertices(dicci,ver):
 
     gr.insertVertex(dicci["grafico"],ver["landing_point_id"])
-
+    lt.addLast(dicci["lista"],ver)
+    
 
     return dicci
 
 def agregararcos(dicci,verti):
 
     gr.addEdge(dicci['grafico'],verti["destination"],verti["origin"],verti["cable_length"])
+
+
+    return dicci
+
+def agregarpaises(dicci,pp):
+
+    lt.addLast(dicci["paises"],pp)
+    
 
 
     return dicci

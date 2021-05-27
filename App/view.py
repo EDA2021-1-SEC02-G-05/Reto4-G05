@@ -41,8 +41,9 @@ def printMenu():
     print("2- ")
 
 dicci = None
-filess="landing_points.csv"
-filess2='connections.csv'
+files="landing_points.csv"
+files2='connections.csv'
+files3="countries.csv"
 """
 Menu principal
 """
@@ -52,9 +53,24 @@ while True:
     if int(inputs[0]) == 1:
 
         dicci=controller.init()
-        dicci=controller.loadvertices(dicci,filess)
-        dicci=controller.loadarcos(dicci,filess2)
+        dicci=controller.loadvertices(dicci,files)
+        dicci=controller.loadarcos(dicci,files2)
+        dicci=controller.loadpais(dicci,files3)
+        verti=gr.numVertices(dicci["grafico"])#numero de vertices
+        arc= gr.numEdges(dicci["grafico"])#numero de arcos
+        pais= lt.size(dicci["paises"])#tamaño lista (numero de paises)
+        infoultimo=lt.getElement(dicci["paises"],pais)#saca la información del ultimo pais del archivo
+        infoultimo= "La poblacion del ultimo pais es",infoultimo["Population"]," y el numero de usuarios de internet son: ",infoultimo["Internet users"]
+    
+        
+        ultimo=lt.getElement(dicci["lista"],verti)
+        ultimo=("Ultimo landing point cargado : "+str(ultimo["landing_point_id"])+", Nombre del landing point: "+str(ultimo["name"])+", Latitud :"+str(ultimo["latitude"])+", Longitud: "+str(ultimo["longitude"]))
         print("Cargando información de los archivos ....")
+        print("El numero total de landing points: "+str(verti))
+        print("El numero total de conexiones son : "+str(arc))
+        print("El numero total de paises es: ",pais)
+        print(ultimo)
+        print(infoultimo)
 
     elif int(inputs[0]) == 2:
         pass

@@ -57,7 +57,7 @@ def loadvertices(dicci,filess):
 def loadarcos(dicci,filess2):
 
     mapfile1 = cf.data_dir + "connections.csv"
-    input_file = csv.DictReader(open(mapfile1, encoding="utf-8"),
+    input_file = csv.DictReader(open(mapfile1, encoding="utf-8-sig"),
                                 delimiter=",")
     
     for verti in input_file:
@@ -65,6 +65,19 @@ def loadarcos(dicci,filess2):
         model.agregararcos(dicci,verti)
 
     return dicci
+
+def loadpais(dicci,pp):
+
+    mapfile1 = cf.data_dir + "countries.csv"
+    input_file = csv.DictReader(open(mapfile1, encoding="utf-8-sig"),
+                                delimiter=",")
+    
+    for pp in input_file:
+
+        model.agregarpaises(dicci,pp)
+
+    return dicci
+
 
 
 
