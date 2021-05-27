@@ -24,7 +24,7 @@ import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
-from DISClib.ADT.graph import gr
+from DISClib.ADT.graph import gr, vertices
 assert cf
 
 
@@ -54,7 +54,14 @@ while True:
         dicci=controller.init()
         dicci=controller.loadvertices(dicci,filess)
         dicci=controller.loadarcos(dicci,filess2)
+        verti=gr.numVertices(dicci["grafico"])
+        arc= gr.numEdges(dicci["grafico"])
+        ultimo=lt.getElement(dicci["lista"],verti)
+        ultimo=(" Ultimo landing point cargado : "+str(ultimo["landing_point_id"])+", Nombre del landing point: "+str(ultimo["name"])+", Latitud :"+str(ultimo["latitude"])+", Longitud: "+str(ultimo["longitude"]))
         print("Cargando información de los archivos ....")
+        print("El numero total de landing points: "+str(verti))
+        print("El numero total de conexiones son : "+str(arc))
+        print(ultimo)
 
     elif int(inputs[0]) == 2:
         pass

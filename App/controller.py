@@ -57,7 +57,7 @@ def loadvertices(dicci,filess):
 def loadarcos(dicci,filess2):
 
     mapfile1 = cf.data_dir + "connections.csv"
-    input_file = csv.DictReader(open(mapfile1, encoding="utf-8"),
+    input_file = csv.DictReader(open(mapfile1, encoding="utf-8-sig"),
                                 delimiter=",")
     
     for verti in input_file:

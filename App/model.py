@@ -25,6 +25,7 @@
  """
 
 
+from os import name
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT.graph import gr
@@ -48,6 +49,7 @@ def newgraph():
     dicci={}
 
     dicci["grafico"]=gr.newGraph(datastructure='ADJ_LIST',directed= False,size=14000,comparefunction=None)
+    dicci["lista"]=lt.newList()
 
 
     return dicci
@@ -58,6 +60,7 @@ def newgraph():
 def agregarvertices(dicci,ver):
 
     gr.insertVertex(dicci["grafico"],ver["landing_point_id"])
+    lt.addLast(dicci["lista"],ver)
 
 
     return dicci
