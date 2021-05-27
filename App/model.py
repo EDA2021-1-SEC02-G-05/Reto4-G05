@@ -25,6 +25,7 @@
  """
 
 
+from os import name
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT.graph import gr
