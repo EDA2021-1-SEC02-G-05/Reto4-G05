@@ -78,9 +78,23 @@ def loadpais(dicci,pp):
 
     return dicci
 
+def loadrequerimiento1(dicci,lad1,lad2):
 
+    req1 = model.requerimiento1(dicci,lad1,lad2)
 
+    return req1[0],req1[1]
 
+def loadrequerimiento2(dicci):
+
+    req2 = model.requerimiento2(dicci)
+
+    return req2[0],req2[1],req2[2],req2[3],req2[4]
+
+def loadrequerimiento3(dicci,paisA,paisB):
+
+    req3 = model.requerimiento3(dicci,paisA,paisB)
+
+    return req3[0],req3[1]
 
 
 

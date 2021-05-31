@@ -33,6 +33,8 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Graphs import dijsktra as djk
+from DISClib.Algorithms.Graphs import scc as kosa
+from DISClib.Algorithms.Graphs import bfs as bfs
 from DISClib.Utils import error as error
 assert cf
 
@@ -52,10 +54,11 @@ def newgraph():
     dicci["lista"]=lt.newList()
     dicci["paises"]=lt.newList()
 
-
+    dicci["mayores"]=mp.newMap()
     return dicci
 
 def agregarvertices(dicci,ver):
+
 
     gr.insertVertex(dicci["grafico"],ver["landing_point_id"])
     lt.addLast(dicci["lista"],ver)
@@ -65,18 +68,89 @@ def agregarvertices(dicci,ver):
 
 def agregararcos(dicci,verti):
 
-    gr.addEdge(dicci['grafico'],verti["destination"],verti["origin"],verti["cable_length"])
+    elbicho = verti["cable_length"]
+    
+    if elbicho == "n.a.":
 
+        elbicho = 0
+
+        gr.addEdge(dicci['grafico'],verti["destination"],verti["origin"],elbicho)
+
+    else:
+
+        elbicho = elbicho[:-3]
+
+        elbicho = elbicho.replace(",","")
+
+        elbicho = float(elbicho)
+
+        gr.addEdge(dicci['grafico'],verti["destination"],verti["origin"],elbicho)
 
     return dicci
 
 def agregarpaises(dicci,pp):
 
     lt.addLast(dicci["paises"],pp)
-    
-
 
     return dicci
+
+def requerimiento1(dicci,lad1,lad2):
+
+    k = kosa.KosarajuSCC(dicci["grafico"])
+
+    numclusteres = kosa.connectedComponents(k)
+
+    mismocluster = kosa.stronglyConnected(k,lad1,lad2)
+
+    return numclusteres,mismocluster
+
+
+def requerimiento2(dicci):
+
+    for i in range(0,lt.size(dicci["lista"])):
+
+        rta=lt.getElement(dicci["lista"],i)
+
+        numero = gr.degree(dicci["grafico"],rta["landing_point_id"])
+
+        lista = []
+
+        lista.append(("Nombre del pais: "+str(rta["name"])+" con el identificador: "+str(rta["id"])+" con su numero total de conexiones es: "+str(numero)))
+
+        mp.put(dicci["mayores"],rta["name"],lista)
+
+    valoresHash=mp.valueSet(dicci["mayores"])
+
+    top1 = lt.getElement(valoresHash,1)
+    top2 = lt.getElement(valoresHash,2)
+    top3 = lt.getElement(valoresHash,3)
+    top4 = lt.getElement(valoresHash,4)
+    top5 = lt.getElement(valoresHash,5)
+
+    return top1,top2,top3,top4,top5
+
+
+def requerimiento3(dicci,paisA,paisB):
+
+    Rutas=djk.Dijkstra(dicci["grafico"],paisA)
+
+    Minima = djk.distTo(Rutas,paisB)
+
+    camino = djk.pathTo(Rutas,paisB)
+
+  
+    return Minima,camino
+
+
+
+
+
+
+        
+ 
+    return dicci
+
+
 
 
 

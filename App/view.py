@@ -27,6 +27,8 @@ from DISClib.ADT import list as lt
 from DISClib.ADT.graph import gr, vertices
 assert cf
 
+default_limit = 1000 
+sys.setrecursionlimit(default_limit*10) 
 
 """
 La vista se encarga de la interacción con el usuario
@@ -60,7 +62,7 @@ while True:
         arc= gr.numEdges(dicci["grafico"])#numero de arcos
         pais= lt.size(dicci["paises"])#tamaño lista (numero de paises)
         infoultimo=lt.getElement(dicci["paises"],pais)#saca la información del ultimo pais del archivo
-        infoultimo= "La poblacion del ultimo pais es",infoultimo["Population"]," y el numero de usuarios de internet son: ",infoultimo["Internet users"]
+        infoultimo= ("La poblacion del ultimo pais es: "+str(infoultimo["Population"])+(" y el numero de usuarios de internet son: "+str(infoultimo["Internet users"])))
     
         
         ultimo=lt.getElement(dicci["lista"],verti)
@@ -73,7 +75,33 @@ while True:
         print(infoultimo)
 
     elif int(inputs[0]) == 2:
-        pass
+
+        lad1 = input("Ingrese el primer landinf point: ")
+        lad2 = input ("Ingrese el segundo landing point: ")
+        
+        g = controller.loadrequerimiento1(dicci,lad1,lad2)
+
+        print("El numero total de clusteres es: "+str(g[0]))
+        print("Los clusteres "+str(lad1)+str(" y ")+str(lad2)+str(" son ")+str(g[1]))
+    
+    elif int(inputs[0]) == 3:
+
+        f = controller.loadrequerimiento2(dicci)
+        
+        for i in f:
+            print(i)
+
+    elif int(inputs[0]) == 4:
+
+        paisA = input("Ingrese el punto de origen: ")
+
+        paisB = input("Ingrese el punto de destino: ")
+
+        h = controller.loadrequerimiento3(dicci,paisA,paisB)
+
+        print("La distancia de conexion entre cada par de vertices consecutivos es: ",h[1])
+        print("-"*50)
+        print("La distancia total de la ruta es: ",h[0])
     else:
         sys.exit(0)
 sys.exit(0)
