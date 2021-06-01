@@ -60,7 +60,6 @@ def newgraph():
 
 def agregarvertices(dicci,ver):
 
-
     gr.insertVertex(dicci["grafico"],ver["landing_point_id"])
     lt.addLast(dicci["lista"],ver)
     
@@ -70,6 +69,8 @@ def agregarvertices(dicci,ver):
 def agregararcos(dicci,verti):
 
     elbicho = verti["cable_length"]
+
+    vela = str(verti["origin"])+""
     
     if elbicho == "n.a.":
 
