@@ -102,6 +102,13 @@ while True:
         print("La distancia de conexion entre cada par de vertices consecutivos es: ",h[1])
         print("-"*50)
         print("La distancia total de la ruta es: ",h[0])
+
+
+    elif int(inputs[0]) == 5:
+
+        c = controller.loadrequerimiento4(dicci)
+
+        print(c)
     else:
         sys.exit(0)
 sys.exit(0)

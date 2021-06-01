@@ -96,6 +96,12 @@ def loadrequerimiento3(dicci,paisA,paisB):
 
     return req3[0],req3[1]
 
+def loadrequerimiento4(dicci):
+
+    req3 = model.requerimiento4(dicci)
+
+    return req3
+
 
 
 # Funciones para la carga de datos

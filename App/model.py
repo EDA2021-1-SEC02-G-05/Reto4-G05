@@ -34,6 +34,7 @@ from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Graphs import dijsktra as djk
 from DISClib.Algorithms.Graphs import scc as kosa
+from DISClib.Algorithms.Graphs import prim as mst
 from DISClib.Algorithms.Graphs import bfs as bfs
 from DISClib.Utils import error as error
 assert cf
@@ -142,13 +143,24 @@ def requerimiento3(dicci,paisA,paisB):
     return Minima,camino
 
 
+def requerimiento4(dicci):
+
+    prim = mst.PrimMST(dicci["grafico"])
+    
+
+
+
+    return prim
+
+
+
+
 
 
 
 
         
  
-    return dicci
 
 
 
