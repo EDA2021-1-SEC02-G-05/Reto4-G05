@@ -24,7 +24,9 @@ import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
-from DISClib.ADT.graph import gr, vertices
+from DISClib.DataStructures import mapentry as me
+from DISClib.ADT import map as mp
+from DISClib.ADT.graph import gr
 assert cf
 
 default_limit = 1000 
@@ -40,7 +42,8 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información del grafo")
-    print("2- ")
+    print("2- cargar requerimiento 1")
+    print("3- cargar requerimiento")
 
 dicci = None
 files="landing_points.csv"
@@ -58,6 +61,14 @@ while True:
         dicci=controller.loadvertices(dicci,files)
         dicci=controller.loadarcos(dicci,files2)
         dicci=controller.loadpais(dicci,files3)
+        dicci=controller.loadarcos1(dicci,files2)
+        dicci=controller.loadmapa(dicci)
+        cantidad=mp.size(dicci["tabla"])
+
+
+
+
+
         verti=gr.numVertices(dicci["grafico"])#numero de vertices
         arc= gr.numEdges(dicci["grafico"])#numero de arcos
         pais= lt.size(dicci["paises"])#tamaño lista (numero de paises)
@@ -65,14 +76,17 @@ while True:
         infoultimo= ("La poblacion del ultimo pais es: "+str(infoultimo["Population"])+(" y el numero de usuarios de internet son: "+str(infoultimo["Internet users"])))
     
         
-        ultimo=lt.getElement(dicci["lista"],verti)
-        ultimo=("Ultimo landing point cargado : "+str(ultimo["landing_point_id"])+", Nombre del landing point: "+str(ultimo["name"])+", Latitud :"+str(ultimo["latitude"])+", Longitud: "+str(ultimo["longitude"]))
+
+
+
+
         print("Cargando información de los archivos ....")
         print("El numero total de landing points: "+str(verti))
         print("El numero total de conexiones son : "+str(arc))
         print("El numero total de paises es: ",pais)
-        print(ultimo)
         print(infoultimo)
+        print(cantidad)
+
 
     elif int(inputs[0]) == 2:
 
@@ -88,21 +102,18 @@ while True:
 
         f = controller.loadrequerimiento2(dicci)
         
-        for i in f:
-            print(i)
+        
+        print(f)
 
     elif int(inputs[0]) == 4:
 
-        paisA = input("Ingrese el punto de origen: ")
+        paisA = input("Ingrese el punto de origen:   ej:4180-2Africa  :   ")
 
-        paisB = input("Ingrese el punto de destino: ")
+        paisB = input("Ingrese el punto de destino:   ej: 3280-2Africa  : ")
 
         h = controller.loadrequerimiento3(dicci,paisA,paisB)
 
-        print("La distancia de conexion entre cada par de vertices consecutivos es: ",h[1])
-        print("-"*50)
-        print("La distancia total de la ruta es: ",h[0])
-
+        print("La distancia de conexion entre cada par de vertices consecutivos es: ",h)
 
     elif int(inputs[0]) == 5:
 
