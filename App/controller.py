@@ -54,6 +54,7 @@ def loadvertices(dicci,filess):
   
     return dicci
 
+
 def loadarcos(dicci,filess2):
 
     mapfile1 = cf.data_dir + "connections.csv"
@@ -62,9 +63,37 @@ def loadarcos(dicci,filess2):
     
     for verti in input_file:
 
-        model.agregararcos(dicci,verti)
+        model.union(dicci,verti)
+        model.completo(dicci,verti)
 
     return dicci
+
+def loadarcos1(dicci,filess2):
+
+    mapfile1 = cf.data_dir + "connections.csv"
+    input_file = csv.DictReader(open(mapfile1, encoding="utf-8-sig"),
+                                delimiter=",")
+    
+    for verti in input_file:
+
+        model.completo1(dicci,verti)
+
+        
+
+    return dicci
+
+
+def loadmapa(dicci):
+
+    ramon= model.mapa(dicci)
+
+    return ramon
+
+
+
+
+
+
 
 def loadpais(dicci,pp):
 
@@ -78,6 +107,10 @@ def loadpais(dicci,pp):
 
     return dicci
 
+
+
+
+
 def loadrequerimiento1(dicci,lad1,lad2):
 
     req1 = model.requerimiento1(dicci,lad1,lad2)
@@ -88,21 +121,19 @@ def loadrequerimiento2(dicci):
 
     req2 = model.requerimiento2(dicci)
 
-    return req2[0],req2[1],req2[2],req2[3],req2[4]
+    return req2
 
 def loadrequerimiento3(dicci,paisA,paisB):
 
     req3 = model.requerimiento3(dicci,paisA,paisB)
 
-    return req3[0],req3[1]
+    return req3
 
 def loadrequerimiento4(dicci):
 
     req3 = model.requerimiento4(dicci)
 
     return req3
-
-
 
 # Funciones para la carga de datos
 
