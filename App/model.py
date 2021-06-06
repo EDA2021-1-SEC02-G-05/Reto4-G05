@@ -25,13 +25,14 @@
  """
 
 
+from DISClib.DataStructures.chaininghashtable import newMap
 from os import name
 import config as cf
 import re
-import haversine as hs
 from DISClib.ADT import list as lt
 from DISClib.ADT.graph import gr
 from DISClib.ADT import map as mp
+from DISClib.ADT import orderedmap as om
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Graphs import dijsktra as djk
@@ -58,6 +59,7 @@ def newgraph():
     dicci["lista"]=lt.newList()
     dicci["tabla"]=mp.newMap()
     dicci["paises"]=lt.newList()
+    dicci["pp"]=mp.newMap()
 
     dicci["mayores"]=mp.newMap()
     return dicci
@@ -69,8 +71,26 @@ def agregarvertices(dicci,ver):
     lis.append(lola)
     lis[0].append(ver)
     mp.put(dicci["tabla"],ver["landing_point_id"],lis)
-    
-    
+    carlos=""
+    for i in ver["name"]:
+        carlos+=i
+        if i==",":
+            carlos= ""
+    carlos=carlos.replace(" ","")
+
+    if mp.contains(dicci["pp"],carlos):
+
+        jef=mp.get(dicci["pp"],carlos)
+        lis = me.getValue(jef)
+        lt.addLast(lis,ver["landing_point_id"])
+
+    else:
+
+        lis=lt.newList()
+        mp.put(dicci["pp"],carlos,lis)
+        lt.addLast(lis,ver["landing_point_id"])
+
+            
     return dicci
 
 
@@ -158,6 +178,7 @@ def completo1(dicci, verti):
 
 def agregarpaises(dicci,pp):
 
+
     lt.addLast(dicci["paises"],pp)
 
     return dicci
@@ -224,6 +245,8 @@ def requerimiento2(dicci):
 
 
 
+
+
         
  
 
@@ -231,70 +254,101 @@ def requerimiento2(dicci):
 
 
 def requerimiento3(dicci,paisA,paisB):
-
     lili=[]
-    lola=[]
+    jef1=mp.get(dicci["pp"],paisA)
+    lis1 = me.getValue(jef1)
+    tulio=lt.getElement(lis1,1)
 
-    Rutas=djk.Dijkstra(dicci["grafico"],paisA)
+    jef11=mp.get(dicci["tabla"],tulio)
+    lis11 = me.getValue(jef11)
+    lis11=lis11[1]
 
 
-    camino = djk.pathTo(Rutas,paisB)
 
-    iterador1 = it.newIterator(camino)
+
+    jef=mp.get(dicci["pp"],paisB)
+    lis = me.getValue(jef)
+    julio=lt.getElement(lis,1)
+
+
+    gordo=mp.get(dicci["tabla"],julio)
+    lisa = me.getValue(gordo)
+    lisa=lisa[1]
+    
+    lili.append(lisa)
+    lili.append(lis11)
+
+
+    Rutas=djk.Dijkstra(dicci["grafico"],lis11)
+
+    Minima = djk.distTo(Rutas,lisa)
+
+    camino = djk.pathTo(Rutas,lisa)
+
+   
+
+
+    return Minima
+
+
+
+
+
+
+
+
+def requerimiento5(dicci):
+    lili=[]
+    mache="4181-2Africa"
+    parce=(mache.split("-"))[0]
+    jeff= mp.get(dicci["tabla"],parce)
+    lis = me.getValue(jeff)
+    vela=lis[0][0]["name"]
+    lili.append(vela)
+
+    pepe=gr.adjacentEdges(dicci["grafico"],mache)
+
+    iterador1 = it.newIterator(pepe)
 
     while it.hasNext(iterador1):
 
         actual1 = it.next(iterador1)
 
-
-        coco=actual1["vertexA"]
-        coco = (coco.split("-"))[0] 
-        lili.append(coco)
-
-    jef2= mp.get(dicci["tabla"],lili[0])
-    lis2 = me.getValue(jef2)
-
-    lat=float(lis2[0][0]["latitude"])
-    log=float(lis2[0][0]["longitude"])
+        
 
 
-    jef= mp.get(dicci["tabla"],lili[1])
-    lis = me.getValue(jef)
-
-    lat1=float(lis[0][0]["latitude"])
-    log1=float(lis[0][0]["longitude"])
-
-
-
-
-    lol= (lat,log)
-    lol2=(lat1,log1)
-    dm=hs.haversine(lol,lol2)
-
-
-
-
+        carlos= actual1["vertexA"]
+        carlos=(carlos.split("-"))[0]
     
+
+        jef2= mp.get(dicci["tabla"],carlos)
+        lis2 = me.getValue(jef2)
+        quique=lis2[0][0]["name"]
+        carlo=""
+
+        for i in quique:
+
+            carlos+=i
+
+            if i==",":
+
+                carlos= ""
+
+
+        carlos=carlos.replace(" ","")
+
+        if carlos not in lili:
+
+
+            lili.append(carlos)
+            
 
 
     return lili
 
 
 
-
-
-
-
-
-def requerimiento4(dicci):
-
-    prim = mst.PrimMST(dicci["grafico"])
     
-
-
-
-    return prim
-
 
 
 
