@@ -135,6 +135,11 @@ def loadrequerimiento4(dicci):
 
     return req3
 
+
+def loadrequerimiento5(dicci):
+
+    return model.requerimiento5(dicci)
+
 # Funciones para la carga de datos
 
 # Funciones de ordenamiento
