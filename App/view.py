@@ -63,7 +63,7 @@ while True:
         dicci=controller.loadpais(dicci,files3)
         dicci=controller.loadarcos1(dicci,files2)
         dicci=controller.loadmapa(dicci)
-        cantidad=mp.size(dicci["tabla"])
+        
 
 
 
@@ -74,9 +74,8 @@ while True:
         pais= lt.size(dicci["paises"])#tamaño lista (numero de paises)
         infoultimo=lt.getElement(dicci["paises"],pais)#saca la información del ultimo pais del archivo
         infoultimo= ("La poblacion del ultimo pais es: "+str(infoultimo["Population"])+(" y el numero de usuarios de internet son: "+str(infoultimo["Internet users"])))
-    
+        pp=mp.keySet(dicci["pp"])
         
-
 
 
 
@@ -85,7 +84,7 @@ while True:
         print("El numero total de conexiones son : "+str(arc))
         print("El numero total de paises es: ",pais)
         print(infoultimo)
-        print(cantidad)
+        print("-----------------------------------------------------------------------------------------------------------------------------------------------------------")
 
 
     elif int(inputs[0]) == 2:
@@ -107,17 +106,20 @@ while True:
 
     elif int(inputs[0]) == 4:
 
-        paisA = input("Ingrese el punto de origen:   ej:4180-2Africa  :   ")
+        paisA=input(" Ingrese el nombre del pais de su interes: ")
+        paisB=input(" Ingrese el nombre del pais de su interes: ")
 
-        paisB = input("Ingrese el punto de destino:   ej: 3280-2Africa  : ")
 
+
+        
         h = controller.loadrequerimiento3(dicci,paisA,paisB)
+        
 
         print("La distancia de conexion entre cada par de vertices consecutivos es: ",h)
 
     elif int(inputs[0]) == 5:
 
-        c = controller.loadrequerimiento4(dicci)
+        c = controller.loadrequerimiento5(dicci)
 
         print(c)
     else:
