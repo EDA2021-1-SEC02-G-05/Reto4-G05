@@ -119,9 +119,15 @@ while True:
 
     elif int(inputs[0]) == 5:
 
-        c = controller.loadrequerimiento5(dicci)
+        mache=input("  Ingrese el nombre del vertice de su interes: ")
+
+        c = controller.loadrequerimiento5(dicci,mache)
+        longi=len(c)
+
+        print(" La cantidad de paises afectado es "+str(longi))
 
         print(c)
+
     else:
         sys.exit(0)
 sys.exit(0)
