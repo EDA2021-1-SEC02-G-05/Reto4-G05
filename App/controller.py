@@ -136,9 +136,9 @@ def loadrequerimiento4(dicci):
     return req3
 
 
-def loadrequerimiento5(dicci):
+def loadrequerimiento5(dicci,mache):
 
-    return model.requerimiento5(dicci)
+    return model.requerimiento5(dicci,mache)
 
 # Funciones para la carga de datos
 
