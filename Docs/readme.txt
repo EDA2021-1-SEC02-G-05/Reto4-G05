@@ -1,1 +1,2 @@
-Responder preguntas y marcar con el nombre de los integrantes
+Santiago Vela 202026767
+Jairo Nicolas Gómez 202020414
