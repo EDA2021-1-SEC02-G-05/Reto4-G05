@@ -297,15 +297,11 @@ def requerimiento3(dicci,paisA,paisB):
 
 
 
-def requerimiento5(dicci):
+def requerimiento5(dicci,mache):
     lili=[]
-    mache="4181-2Africa"
-    parce=(mache.split("-"))[0]
-    jeff= mp.get(dicci["tabla"],parce)
-    lis = me.getValue(jeff)
-    vela=lis[0][0]["name"]
-    lili.append(vela)
-
+    lulu=[]
+    coco=[]
+   
     pepe=gr.adjacentEdges(dicci["grafico"],mache)
 
     iterador1 = it.newIterator(pepe)
@@ -314,17 +310,19 @@ def requerimiento5(dicci):
 
         actual1 = it.next(iterador1)
 
-        
+
+        juancho= actual1["vertexA"]
 
 
         carlos= actual1["vertexA"]
         carlos=(carlos.split("-"))[0]
-    
+
+        
 
         jef2= mp.get(dicci["tabla"],carlos)
         lis2 = me.getValue(jef2)
         quique=lis2[0][0]["name"]
-        carlo=""
+        carlos=""
 
         for i in quique:
 
@@ -337,17 +335,53 @@ def requerimiento5(dicci):
 
         carlos=carlos.replace(" ","")
 
-        if carlos not in lili:
+        jarras=(juancho, carlos)
+
+        if jarras not in lulu:
+
+            lulu.append(jarras)
 
 
-            lili.append(carlos)
-            
+    origen=lulu[0][0]
+    origen=(origen.split("-"))[0]
+    
+    orr= mp.get(dicci["tabla"],origen)
+    lla = me.getValue(orr)
+    la1=lla[0][0]["latitude"]
+    log1=lla[0][0]["longitude"]
+
+    lola1=(la1,log1)
 
 
-    return lili
+
+
+    lulu=lulu[1:]
+
+    for i in lulu:
+
+        orgg=(i[0].split("-"))[0]
+
+
+        orr= mp.get(dicci["tabla"],orgg)
+        lal = me.getValue(orr)
+        la2=lal[0][0]["latitude"]
+        log2=lal[0][0]["latitude"]
+
+        lola2=(la2,log2)
+
+        dm=hs.haversine(lola1,lola2)
+
+        coco.append((" el pais "+str(i[1])+ " estara afectado, y cuenta con una distancia " +str(dm)))
 
 
 
+
+    return coco
+
+
+# lol= (l,lo)
+# lol2=(l1,lo1)
+# dm=hs.haversine(lol,lol2)     
     
 
 
