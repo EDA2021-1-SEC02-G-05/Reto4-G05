@@ -1,38 +1,10 @@
-﻿"""
- * Copyright 2020, Departamento de sistemas y Computación,
- * Universidad de Los Andes
- *
- *
- * Desarrolado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
- *
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Contribuciones:
- *
- * Dario Correal - Version inicial
- """
-
-
-from DISClib.DataStructures.chaininghashtable import newMap
 from os import name
 import config as cf
 import re
+import haversine as hs
 from DISClib.ADT import list as lt
 from DISClib.ADT.graph import gr
 from DISClib.ADT import map as mp
-from DISClib.ADT import orderedmap as om
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Graphs import dijsktra as djk
@@ -40,14 +12,9 @@ from DISClib.Algorithms.Graphs import scc as kosa
 from DISClib.Algorithms.Graphs import bfs as bfs
 from DISClib.DataStructures import listiterator as it
 from DISClib.Utils import error as error
+from DISClib.Algorithms.Graphs import prim as mst
+from DISClib.ADT import queue as col
 assert cf
-
-"""
-Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
-los mismos.
-"""
-
-# Construccion de modelos
 
 
 def newgraph():
@@ -290,12 +257,38 @@ def requerimiento3(dicci,paisA,paisB):
 
     return Minima
 
+def requerimiento4(dicci):
 
+    prim = mst.PrimMST(dicci["grafico"]) # devuelve el search
 
+    camino = mst.edgesMST(dicci["grafico"],prim)# camino minimo
 
+    #rta
 
+    tamano = col.size(camino["mst"])
 
+    peso = mst.weightMST(dicci["grafico"],prim) # peso del camino minimo
 
+    valores = mp.valueSet(prim["distTo"])
+
+    iterador = it.newIterator(valores)
+
+    lista = []
+    while it.hasNext(iterador):
+
+        actu = it.next(iterador)
+
+        lista.append(actu)
+
+        x = 0
+        c = []
+        while x <len(lista):
+
+            c.append(lista[x])
+
+            x+=3
+
+    return tamano,peso,max(c)
 
 def requerimiento5(dicci,mache):
     lili=[]
@@ -350,9 +343,7 @@ def requerimiento5(dicci,mache):
     la1=lla[0][0]["latitude"]
     log1=lla[0][0]["longitude"]
 
-    lola1=(la1,log1)
-
-
+    lola1=(float(la1),float(log1))
 
 
     lulu=lulu[1:]
@@ -367,41 +358,88 @@ def requerimiento5(dicci,mache):
         la2=lal[0][0]["latitude"]
         log2=lal[0][0]["latitude"]
 
-        lola2=(la2,log2)
+        lola2=(float(la2),float(log2))
 
         dm=hs.haversine(lola1,lola2)
 
-        coco.append((" el pais "+str(i[1])+ " estara afectado, y cuenta con una distancia " +str(dm)))
-
-
+        coco.append((" el pais "+str(i[1])+ " estara afectado, y cuenta con una distancia " +str(dm)+" km"))
 
 
     return coco
 
 
-# lol= (l,lo)
-# lol2=(l1,lo1)
-# dm=hs.haversine(lol,lol2)     
+def nuevo(dicci,verti):
+
+    if mp.contains(dicci["nuevo"],verti["cable_name"]):
+
+        jef=mp.get(dicci["nuevo"],verti["cable_name"])
+        lis = me.getValue(jef)
+        lt.addLast(lis,verti)
+
+    else:
+
+        lisa=lt.newList()
+        lt.addLast(lisa,verti)
+        mp.put(dicci["nuevo"],verti["cable_name"],lisa)
+
+    return dicci
+
+def tablapais(dicci,pp):
+
+    if mp.contains(dicci["tablita"],pp["CountryName"]):
+
+        jef=mp.get(dicci["tablita"],pp["CountryName"])
+        lis = me.getValue(jef)
+        lt.addLast(lis,pp)
+
+    else:
+
+        lisa=lt.newList()
+        lt.addLast(lisa,pp)
+        mp.put(dicci["tablita"],pp["CountryName"],lisa)
+
+    return dicci
+
     
 
+def requerimiento6(dicci,pais,cable):
 
+    lista = []
+    lista2 = []
 
+    breve = dicci["tablita"]
+    llavesita = mp.get(breve,pais)
+    valores = me.getValue(llavesita)
 
+    valido = dicci["nuevo"]
+    llave = mp.get(valido,cable)
+    valor = me.getValue(llave)
 
+    iterador1 = it.newIterator(valor)
 
-        
+    while it.hasNext(iterador1):
 
+        actual = it.next(iterador1)
 
-    
+        iterador2 = it.newIterator(valores)
 
+        while it.hasNext(iterador2):
 
+            actual2 = it.next(iterador2)
 
+            lista.append(actual)
+            lista2.append(actual2)
 
+    o=[]
+    for i in lista:
+        for x in lista2:
 
+            cap= i["capacityTBPS"].replace(".","")
+            inte = x["Internet users"].replace(".","")
 
+            rta= float(cap)/float(inte)
 
-
-
+    return rta
 
 # Funciones para agregar informacion al catalogo
 
