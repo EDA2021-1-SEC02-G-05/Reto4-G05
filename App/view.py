@@ -1,25 +1,3 @@
-﻿"""
- * Copyright 2020, Departamento de sistemas y Computación, Universidad
- * de Los Andes
- *
- *
- * Desarrolado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
- *
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
- """
-
 import config as cf
 import sys
 import controller
@@ -42,8 +20,12 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información del grafo")
-    print("2- cargar requerimiento 1")
-    print("3- cargar requerimiento")
+    print("2- Cargar requerimiento 1")
+    print("3- Cargar requerimiento 2")
+    print("4- Cargar requerimiento 3")
+    print("5- Cargar requerimiento 4")
+    print("6- Cargar requerimiento 5")
+    print("7- Cargar requerimiento 6")
 
 dicci = None
 files="landing_points.csv"
@@ -109,15 +91,20 @@ while True:
         paisA=input(" Ingrese el nombre del pais de su interes: ")
         paisB=input(" Ingrese el nombre del pais de su interes: ")
 
-
-
-        
         h = controller.loadrequerimiento3(dicci,paisA,paisB)
         
-
         print("La distancia de conexion entre cada par de vertices consecutivos es: ",h)
 
     elif int(inputs[0]) == 5:
+
+        c = controller.loadrequerimiento4(dicci)
+
+        print("El numero de nodos conectados a la red de expansión minima es: "+str(c[0]))
+        print("El costo total de la red de expasión minima es :"+str(c[1]))
+        print(c[2])
+
+
+    elif int(inputs[0]) == 6:
 
         mache=input("  Ingrese el nombre del vertice de su interes: ")
 
@@ -128,6 +115,13 @@ while True:
 
         print(c)
 
+    elif int(inputs[0]) == 7:
+
+        pais=input(" Ingrese el nombre del pais de su interes: ")
+        cable=input(" Ingrese el nombre del cable de su interes: ")
+
+        r = controller.loadrequerimiento6(dicci,pais,cable)
+
+        print(r)
     else:
         sys.exit(0)
-sys.exit(0)
