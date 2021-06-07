@@ -229,6 +229,16 @@ def requerimiento3(dicci,paisA,paisB):
     jef11=mp.get(dicci["tabla"],tulio)
     lis11 = me.getValue(jef11)
     lis11=lis11[1]
+    lis11=(lis11.split("-"))[0]
+
+    jota=lis11[1]
+    jota=(jota.split("-"))[0]
+    lis11=lis11[0]
+    log=lis11[0]["longitude"]
+    lat=lis11[0]["latitude"]
+
+    pp1=(log,lat)
+
 
 
 
@@ -240,22 +250,24 @@ def requerimiento3(dicci,paisA,paisB):
 
     gordo=mp.get(dicci["tabla"],julio)
     lisa = me.getValue(gordo)
-    lisa=lisa[1]
-    
-    lili.append(lisa)
-    lili.append(lis11)
+    jojo=lisa[1]
+    jojo=(jojo.split("-"))[0]
+    lisa=lisa[0]
+    log1=lisa[0]["longitude"]
+    lat1=lisa[0]["latitude"]
 
+    pp2=(log1,lat1)
 
-    Rutas=djk.Dijkstra(dicci["grafico"],lis11)
+    dm=hs.haversine(pp1,pp2)
 
-    Minima = djk.distTo(Rutas,lisa)
+    jack= (" La distancia total entre  "+str(paisA)+"  y "+str(paisB)+" es: "+ str(dm))
 
-    camino = djk.pathTo(Rutas,lisa)
 
    
 
 
-    return Minima
+    return jack
+
 
 def requerimiento4(dicci):
 
