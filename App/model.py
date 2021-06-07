@@ -221,26 +221,19 @@ def requerimiento2(dicci):
 
 
 def requerimiento3(dicci,paisA,paisB):
-    lili=[]
     jef1=mp.get(dicci["pp"],paisA)
     lis1 = me.getValue(jef1)
     tulio=lt.getElement(lis1,1)
 
     jef11=mp.get(dicci["tabla"],tulio)
     lis11 = me.getValue(jef11)
-    lis11=lis11[1]
-    lis11=(lis11.split("-"))[0]
 
-    jota=lis11[1]
-    jota=(jota.split("-"))[0]
-    lis11=lis11[0]
-    log=lis11[0]["longitude"]
-    lat=lis11[0]["latitude"]
+    log=float(lis11[0][0]["longitude"])
+    lat=float(lis11[0][0]["latitude"])
+
+
 
     pp1=(log,lat)
-
-
-
 
 
     jef=mp.get(dicci["pp"],paisB)
@@ -250,23 +243,28 @@ def requerimiento3(dicci,paisA,paisB):
 
     gordo=mp.get(dicci["tabla"],julio)
     lisa = me.getValue(gordo)
-    jojo=lisa[1]
-    jojo=(jojo.split("-"))[0]
-    lisa=lisa[0]
-    log1=lisa[0]["longitude"]
-    lat1=lisa[0]["latitude"]
+    log1=float(lisa[0][0]["longitude"])
+    lat1=float(lisa[0][0]["latitude"])
+
+
+
+ 
 
     pp2=(log1,lat1)
+
+
+
+    
+    
 
     dm=hs.haversine(pp1,pp2)
 
     jack= (" La distancia total entre  "+str(paisA)+"  y "+str(paisB)+" es: "+ str(dm))
 
 
-   
-
 
     return jack
+
 
 
 def requerimiento4(dicci):
